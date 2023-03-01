@@ -1,6 +1,6 @@
 name: Python tests
 
-on: [ push ]
+on: [push]
 
 env:
   PYTHON_VERSION: "3.9"
@@ -89,14 +89,6 @@ jobs:
         if: steps.poetry-cache.outputs.cache-hit != 'true'
         run: poetry install
 
-      - name: Migrate Django Database
-        env:
-          # The Hostname is contained inside the tests.py file
-          POSTGRES_DB: localhost
-          # The default PostgreSQL port
-          POSTGRES_PORT: 5432
-        run: |
-          poetry run app/backend/manage.py migrate
       - name: Test with Pytest
         env:
           # The Hostname is contained inside the tests.py file
